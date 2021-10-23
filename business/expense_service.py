@@ -52,5 +52,5 @@ def business_interpret_command(cmd, list_of_expenses):
         exit()
     if cmd_word == "list":
         validate_command_params_list(cmd_params)
-        list_expenses_ui(list_of_expenses)
+        list_expenses_ui(list_of_expenses, cmd_params)
 
