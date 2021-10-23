@@ -144,6 +144,28 @@ def test_validate_command_params_list():
         assert(str(ve) == "too many parameters.")
 
 
+def test_validate_command_params_add():
+    l = ["20", "gas", "150"]
+    validate_command_params_add(l)
+
+    l = ["a", "gas", "150"]
+    try:
+        validate_command_params_add(l)
+    except TypeError as te:
+        assert(str(te) == "apt should be int.")
+
+    l = ["2", "sdaga", "150"]
+    try:
+        validate_command_params_add(l)
+    except TypeError as te:
+        assert(str(te) == "type should belong to the predefined ones.")
+
+    l = ["2", "gas", "ss"]
+    try:
+        validate_command_params_add(l)
+    except TypeError as te:
+        assert(str(te) == "amount should be int.")
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -152,6 +174,8 @@ def run_all_tests():
     test_split_command()
     test_validate_command_word()
     test_validate_command_params_list()
+    test_validate_command_params_add()
+
     print("testing finished.")
 
 

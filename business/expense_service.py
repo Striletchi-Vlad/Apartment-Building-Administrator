@@ -1,6 +1,6 @@
 from domain.expenses import *
 from presentation.console import list_expenses_ui, read_command_ui
-from validation.validations import validate_command_params_list, validate_command_word
+from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_word, validate_expense
 
 
 def add_expense_to_list(l, expense):
@@ -32,7 +32,7 @@ def business_start_console():
             new_cmd = split_command(cmd)
             business_interpret_command(new_cmd, list_of_expenses)
         except TypeError as te:
-            print(te)
+             print(te)
         except ValueError as ve:
             print(ve)
         except IndexError as ie:
@@ -50,7 +50,13 @@ def business_interpret_command(cmd, list_of_expenses):
     
     if cmd_word == "exit":
         exit()
+
     if cmd_word == "list":
         validate_command_params_list(cmd_params)
         list_expenses_ui(list_of_expenses, cmd_params)
 
+    if cmd_word == "add":
+        validate_command_params_add(cmd_params)
+        exp1 = create_expense(int(get_first_param(cmd_params)), get_second_param(cmd_params), int(get_third_param(cmd_params)))
+        validate_expense(exp1)
+        add_expense_to_list(list_of_expenses, exp1)
