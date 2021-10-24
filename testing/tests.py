@@ -267,6 +267,17 @@ def test_business_replace_expenses():
     business_replace_expenses(l, ["20", "gas", "with", "11"])
     assert(l == [{"apartment": 20, "type": "water", "amount": 333}, {"apartment": 20, "type": "gas", "amount": 11}])
 
+
+def test_validate_command_params_sum():
+    l = ["gas"]
+    validate_command_params_sum(l)
+    l = ["a"]
+    try:
+        validate_command_params_sum(l)
+    except ValueError as ve:
+        assert(str(ve) == "type should belong to the predefined ones.")
+
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -280,6 +291,7 @@ def run_all_tests():
     test_business_remove_expenses()
     test_validate_command_params_replace()
     test_business_replace_expenses()
+    test_validate_command_params_sum()
     print("testing finished.")
 
 

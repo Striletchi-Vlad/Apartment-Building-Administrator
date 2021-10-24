@@ -17,7 +17,7 @@ def validate_expense(expense):
 
 
 def validate_command_word(word):
-    if word not in ("exit", "list", "add", "remove", "replace"):
+    if word not in ("exit", "list", "add", "remove", "replace", "sum"):
         raise ValueError("invalid command word.")
 
 
@@ -73,3 +73,7 @@ def validate_command_params_replace(list_of_params):
     if not get_fourth_param(list_of_params).isnumeric():
         raise ValueError(err_msg)
     
+
+def validate_command_params_sum(list_of_params):
+    if get_first_param(list_of_params) not in ["water", "heating", "electricity", "gas", "other"]:
+        raise ValueError("type should belong to the predefined ones.")

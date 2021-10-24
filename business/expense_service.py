@@ -1,6 +1,6 @@
 from domain.expenses import *
-from presentation.console import list_expenses_ui, read_command_ui
-from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_remove, validate_command_params_replace, validate_command_word, validate_expense
+from presentation.console import list_expenses_ui, read_command_ui, sum_ui
+from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_remove, validate_command_params_replace, validate_command_word, validate_expense, validate_command_params_sum
 
 
 def add_expense_to_list(l, expense):
@@ -63,6 +63,10 @@ def business_interpret_command(cmd, list_of_expenses):
 
     if cmd_word == "replace":
         business_replace_expenses(list_of_expenses, cmd_params)
+
+    if cmd_word == "sum":
+        validate_command_params_sum(cmd_params)
+        sum_ui(list_of_expenses, cmd_params)
 
 
 def business_add_expenses(list_of_expenses, cmd_params):

@@ -1,4 +1,4 @@
-from domain.expenses import get_apt, get_amount, get_first_param, get_second_param, to_str
+from domain.expenses import get_apt, get_type, get_amount, get_first_param, get_second_param, to_str
 
 def read_command_ui():
         return input("Input command> ")
@@ -30,3 +30,12 @@ def list_expenses_ui(l, params):
             for expense in l:
                 if get_amount(expense) == int(get_second_param(params)):
                     print(to_str(expense))
+
+
+def sum_ui(list_of_expenses, cmd_params):
+    s = 0
+    for item in list_of_expenses:
+        if(get_type(item) == get_first_param(cmd_params)):
+            s+=get_amount(item)
+
+    print(get_first_param(cmd_params) + " sum is: " + str(s))
