@@ -166,6 +166,77 @@ def test_validate_command_params_add():
     except TypeError as te:
         assert(str(te) == "amount should be int.")
 
+    
+def test_validate_command_params_remove():
+    l = ["20"]
+    validate_command_params_remove(l)
+
+    l = ["gas"]
+    validate_command_params_remove(l)
+
+    l = ["5", "to", "10"]
+    validate_command_params_remove(l)
+
+    l = ["a", "to", "10"]
+    try:
+        validate_command_params_remove(l)
+    except ValueError as ve:
+        assert(str(ve) == "apt should be int.")
+        
+    l = ["5", "to", "a"]
+    try:
+        validate_command_params_remove(l)
+    except ValueError as ve:
+        assert(str(ve) == "apt should be int.")
+        
+    l = ["5", "dsds", "10"]
+    try:
+        validate_command_params_remove(l)
+    except ValueError as ve:
+        assert(str(ve) == "unknown connector.")
+
+    l = []
+    try:
+        validate_command_params_remove(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid number of params.")
+        
+    l = ["a", "a", "a", "a"]
+    try:
+        validate_command_params_remove(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid number of params.")
+        
+
+def test_business_remove_expenses():
+    l = []
+    init_expenses_list(l)
+    business_remove_expenses(l, ["20", "to", "21"])
+    err_found = True
+    for item in l:
+        if get_apt(item) in [20,21]:
+            err_found = False # ca sa crape in assert
+    assert(err_found)
+
+    l = []
+    init_expenses_list(l)
+    business_remove_expenses(l, ["20"])
+    err_found = True
+    for item in l:
+        if get_apt(item) == 20:
+            err_found = False
+    assert(err_found)
+
+    l = []
+    init_expenses_list(l)
+    business_remove_expenses(l, ["gas"])
+    err_found = True
+    for item in l:
+        if get_type(item) == "gas":
+            err_found = False
+    assert(err_found)
+
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -175,7 +246,8 @@ def run_all_tests():
     test_validate_command_word()
     test_validate_command_params_list()
     test_validate_command_params_add()
-
+    test_validate_command_params_remove()
+    test_business_remove_expenses()
     print("testing finished.")
 
 

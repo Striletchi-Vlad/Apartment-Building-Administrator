@@ -1,6 +1,6 @@
 from domain.expenses import *
 from presentation.console import list_expenses_ui, read_command_ui
-from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_word, validate_expense
+from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_remove, validate_command_word, validate_expense
 
 
 def add_expense_to_list(l, expense):
@@ -60,3 +60,36 @@ def business_interpret_command(cmd, list_of_expenses):
         exp1 = create_expense(int(get_first_param(cmd_params)), get_second_param(cmd_params), int(get_third_param(cmd_params)))
         validate_expense(exp1)
         add_expense_to_list(list_of_expenses, exp1)
+
+    if cmd_word == "remove":
+        business_remove_expenses(list_of_expenses, cmd_params)
+
+
+def business_remove_expenses(expenses, cmd_params):
+    validate_command_params_remove(cmd_params)
+
+    if(len(cmd_params) > 2): # `remove 5 to 10`
+        index = 0
+        while index<len(expenses):
+            if get_apt(expenses[index]) >= int(get_first_param(cmd_params)) and get_apt(expenses[index]) <= int(get_third_param(cmd_params)):
+                expenses.remove(expenses[index])
+            else:
+                index+=1
+        
+    if(len(cmd_params) == 1): # `remove 15` or `remove gas`
+        if get_first_param(cmd_params).isnumeric():# `remove 15`
+            index = 0
+            while index<len(expenses):
+                if get_apt(expenses[index]) == int(get_first_param(cmd_params)) :
+                    expenses.remove(expenses[index])
+                else:
+                    index+=1
+ 
+        else: # `remove gas`
+            index = 0
+            while index<len(expenses):
+                if get_type(expenses[index]) == get_first_param(cmd_params) :
+                    expenses.remove(expenses[index])
+                else:
+                    index+=1
+    
