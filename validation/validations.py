@@ -1,4 +1,4 @@
-from domain.expenses import get_first_param, get_second_param, get_third_param
+from domain.expenses import get_first_param, get_second_param, get_third_param, get_fourth_param
 
 def validate_expense(expense):
     if type(expense["apartment"]) != int: # can be either int, or a str of an int
@@ -17,8 +17,8 @@ def validate_expense(expense):
 
 
 def validate_command_word(word):
-    if word not in ("exit", "list", "add", "remove"):
-        raise ValueError("invalid command word.")        
+    if word not in ("exit", "list", "add", "remove", "replace"):
+        raise ValueError("invalid command word.")
 
 
 def validate_command_params_add(list_of_params):
@@ -58,3 +58,18 @@ def validate_command_params_remove(list_of_params):
             raise ValueError("apt should be int.")
         if get_second_param(list_of_params) != "to":
             raise ValueError("unknown connector.")
+
+
+def validate_command_params_replace(list_of_params):
+    err_msg = "invalid params."
+    if len(list_of_params) != 4:
+        raise ValueError(err_msg)
+    if not get_first_param(list_of_params).isnumeric():
+        raise ValueError(err_msg)
+    if get_second_param(list_of_params) not in ["water", "heating", "electricity", "gas", "other"]:
+        raise ValueError(err_msg)
+    if get_third_param(list_of_params) != "with":
+        raise ValueError(err_msg)
+    if not get_fourth_param(list_of_params).isnumeric():
+        raise ValueError(err_msg)
+    

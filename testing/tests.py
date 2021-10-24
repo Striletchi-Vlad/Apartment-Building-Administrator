@@ -237,6 +237,36 @@ def test_business_remove_expenses():
     assert(err_found)
 
 
+def test_validate_command_params_replace():
+    l = ["12", "gas", "with", "200"]
+    validate_command_params_replace(l)
+    l = ["a", "gas", "with", "200"]
+    try:
+        validate_command_params_replace(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid params.")
+    l = ["20", "fsfs", "with", "200"]
+    try:
+        validate_command_params_replace(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid params.")
+    l = ["20", "gas", "gssg", "200"]
+    try:
+        validate_command_params_replace(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid params.")
+    l = ["20", "gas", "with", "sffsf"]
+    try:
+        validate_command_params_replace(l)
+    except ValueError as ve:
+        assert(str(ve) == "invalid params.")
+
+
+def test_business_replace_expenses():
+    l = [{"apartment": 20, "type": "gas", "amount": 2200}, {"apartment": 20, "type": "gas", "amount": 150}, {"apartment": 20, "type": "water", "amount": 333}]
+    business_replace_expenses(l, ["20", "gas", "with", "11"])
+    assert(l == [{"apartment": 20, "type": "water", "amount": 333}, {"apartment": 20, "type": "gas", "amount": 11}])
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -248,6 +278,8 @@ def run_all_tests():
     test_validate_command_params_add()
     test_validate_command_params_remove()
     test_business_remove_expenses()
+    test_validate_command_params_replace()
+    test_business_replace_expenses()
     print("testing finished.")
 
 
