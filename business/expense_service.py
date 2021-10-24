@@ -1,6 +1,6 @@
 from domain.expenses import *
-from presentation.console import list_expenses_ui, read_command_ui, sum_ui
-from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_remove, validate_command_params_replace, validate_command_word, validate_expense, validate_command_params_sum
+from presentation.console import list_expenses_ui, max_ui, read_command_ui, sum_ui
+from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_max, validate_command_params_remove, validate_command_params_replace, validate_command_word, validate_expense, validate_command_params_sum
 
 
 def add_expense_to_list(l, expense):
@@ -35,8 +35,6 @@ def business_start_console():
              print(te)
         except ValueError as ve:
             print(ve)
-        except IndexError as ie:
-            print(ie)
 
 
 def business_interpret_command(cmd, list_of_expenses):
@@ -67,6 +65,10 @@ def business_interpret_command(cmd, list_of_expenses):
     if cmd_word == "sum":
         validate_command_params_sum(cmd_params)
         sum_ui(list_of_expenses, cmd_params)
+
+    if cmd_word == "max":
+        validate_command_params_max(cmd_params)
+        max_ui(list_of_expenses, cmd_params)
 
 
 def business_add_expenses(list_of_expenses, cmd_params):
@@ -115,3 +117,4 @@ def business_replace_expenses(expenses, cmd_params):
             index+=1
 
     business_add_expenses(expenses, [get_first_param(cmd_params), get_second_param(cmd_params), get_fourth_param(cmd_params)])
+

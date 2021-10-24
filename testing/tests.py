@@ -1,6 +1,7 @@
 from domain.expenses import *
 from validation.validations import *
 from business.expense_service import *
+from infrastructure.infrastructure import *
 
 def test_create_expense():
     apartment = 20
@@ -278,6 +279,25 @@ def test_validate_command_params_sum():
         assert(str(ve) == "type should belong to the predefined ones.")
 
 
+def test_infrastructure_max_expense():
+    l = []
+    init_expenses_list(l)
+    assert(infrastructure_max_expense(l, 20, "gas") == 150)
+    assert(infrastructure_max_expense(l, 22, "gas") == 150)
+    assert(infrastructure_max_expense(l, 20, "heating") == 300)
+
+
+def test_validate_command_params_max():
+    l = ["20"]
+    validate_command_params_max(l)
+    l = ["f"]
+    try:
+        validate_command_params_max(l)
+    except ValueError as ve:
+        assert(str(ve) == "apt should be int.")
+
+
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -292,7 +312,9 @@ def run_all_tests():
     test_validate_command_params_replace()
     test_business_replace_expenses()
     test_validate_command_params_sum()
-    print("testing finished.")
+    test_infrastructure_max_expense()
+    test_validate_command_params_max()
 
+    print("testing finished.")
 
 
