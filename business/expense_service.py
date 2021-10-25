@@ -1,8 +1,7 @@
 from domain.expenses import *
 from presentation.console import list_expenses_ui, max_ui, read_command_ui, sort_ui, sum_ui
-from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_max, validate_command_params_remove, validate_command_params_replace, validate_command_params_sort, validate_command_word, validate_expense, validate_command_params_sum
-from infrastructure.infrastructure import infrastructure_sort, infrastructure_add_expenses, infrastructure_remove_expenses, infrastructure_replace_expenses
-
+from validation.validations import *
+from infrastructure.infrastructure import infrastructure_filter_amount, infrastructure_sort, infrastructure_add_expenses, infrastructure_remove_expenses, infrastructure_replace_expenses, infrastructure_filter_type
 
 
 def split_command(string):
@@ -74,3 +73,17 @@ def business_interpret_command(cmd, list_of_expenses):
         validate_command_params_sort(cmd_params)
         new_list = infrastructure_sort(list_of_expenses, cmd_params)
         sort_ui(new_list, cmd_params)
+
+
+    if cmd_word == "filter":
+        validate_command_params_filter(cmd_params)
+        business_filter_list(list_of_expenses, cmd_params)
+        
+
+
+
+def business_filter_list(list_of_expenses, cmd_params):
+    if get_first_param(cmd_params).isnumeric():
+        infrastructure_filter_amount(list_of_expenses, get_first_param(cmd_params))
+    else:
+        infrastructure_filter_type(list_of_expenses, get_first_param(cmd_params))

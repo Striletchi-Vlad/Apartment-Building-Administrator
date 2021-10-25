@@ -17,7 +17,7 @@ def validate_expense(expense):
 
 
 def validate_command_word(word):
-    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max", "sort"):
+    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max", "sort", "filter"):
         raise ValueError("invalid command word.")
 
 
@@ -75,15 +75,29 @@ def validate_command_params_replace(list_of_params):
     
 
 def validate_command_params_sum(list_of_params):
+    if len(list_of_params) != 1:
+        raise ValueError("invalid number of params.")
     if get_first_param(list_of_params) not in ["water", "heating", "electricity", "gas", "other"]:
         raise ValueError("type should belong to the predefined ones.")
 
 
 def validate_command_params_max(list_of_params):
+    if len(list_of_params) != 1:
+        raise ValueError("invalid number of params.")
     if not str(get_first_param(list_of_params)).isnumeric():
         raise ValueError("apt should be int.")
 
 
 def validate_command_params_sort(list_of_params):
+    if len(list_of_params) != 1:
+        raise ValueError("invalid number of params.")
     if get_first_param(list_of_params) not in ["apartment", "type"]:
         raise ValueError("param should be either 'apartment' or 'type'.")
+
+        
+def validate_command_params_filter(list_of_params):
+    if len(list_of_params) != 1:
+        raise ValueError("invalid number of params.")
+    if get_first_param(list_of_params) not in ["water", "heating", "electricity", "gas", "other"]:
+        if not get_first_param(list_of_params).isnumeric():
+            raise ValueError("param should be either a type or int.")

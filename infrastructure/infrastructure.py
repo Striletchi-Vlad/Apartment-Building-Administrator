@@ -104,3 +104,27 @@ def infrastructure_sort(list_of_expenses, cmd_params):
         for expense_type in ["water", "heating", "electricity", "gas", "other"]:
             new_list.append([expense_type, infrastructure_sum_expense_type(list_of_expenses ,expense_type)])
     return new_list
+
+
+def infrastructure_filter_type(expenses, expense_type):
+    """
+    `filter gas` – keep only expenses for `gas`\
+    """
+    index = 0
+    while index<len(expenses):
+        if get_type(expenses[index]) != expense_type:
+            expenses.remove(expenses[index])
+        else:
+            index+=1
+
+            
+def infrastructure_filter_amount(expenses, amt):
+    """
+    `filter 300` – keep only expenses having an amount of money smaller than 300 RON
+    """
+    index = 0
+    while index<len(expenses):
+        if get_amount(expenses[index]) >= int(amt):
+            expenses.remove(expenses[index])
+        else:
+            index+=1

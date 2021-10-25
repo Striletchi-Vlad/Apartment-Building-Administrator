@@ -324,6 +324,43 @@ def test_infrastructure_sort():
     pass
 
 
+def test_filter_type():
+    l = []
+    init_expenses_list(l)
+    infrastructure_filter_type(l, "gas")
+    failed = True
+    for item in l:
+        if get_type(item) != "gas":
+            failed = False
+    
+    assert(failed)
+
+
+def test_filter_amount():
+    l = []
+    init_expenses_list(l)
+    amt = 200
+    infrastructure_filter_amount(l, amt)
+    failed = True
+    for item in l:
+        if get_amount(item) > amt:
+            failed = False
+    
+    assert(failed)
+
+
+def test_validate_command_params_filter():
+    l = ["gas"]
+    validate_command_params_filter
+    l = ["20"]
+    validate_command_params_filter
+    l = ["sffs"]
+    try:
+        validate_command_params_filter
+    except ValueError as ve:
+        assert(str(ve) == "param should be either a type or int.")
+
+
 def run_all_tests():
     print("testing started...")
     test_create_expense()
@@ -344,6 +381,9 @@ def run_all_tests():
     test_validate_command_params_sort()
     test_make_apt_list_without_duplicates()
     test_infrastructure_sort()
+    test_filter_type()
+    test_filter_amount()
+    test_validate_command_params_filter()
     print("testing finished.")
 
 
