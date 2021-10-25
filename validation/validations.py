@@ -17,7 +17,7 @@ def validate_expense(expense):
 
 
 def validate_command_word(word):
-    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max", "sort", "filter"):
+    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max", "sort", "filter", "undo"):
         raise ValueError("invalid command word.")
 
 
@@ -101,3 +101,8 @@ def validate_command_params_filter(list_of_params):
     if get_first_param(list_of_params) not in ["water", "heating", "electricity", "gas", "other"]:
         if not get_first_param(list_of_params).isnumeric():
             raise ValueError("param should be either a type or int.")
+
+
+def validate_undo(history):
+    if len(history) == 1:
+        raise ValueError("nothing left to undo.")

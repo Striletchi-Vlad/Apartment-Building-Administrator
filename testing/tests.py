@@ -384,6 +384,7 @@ def run_all_tests():
     test_filter_type()
     test_filter_amount()
     test_validate_command_params_filter()
+
     print("testing finished.")
 
 
