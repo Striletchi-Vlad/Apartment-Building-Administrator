@@ -212,7 +212,7 @@ def test_validate_command_params_remove():
 def test_business_remove_expenses():
     l = []
     init_expenses_list(l)
-    business_remove_expenses(l, ["20", "to", "21"])
+    infrastructure_remove_expenses(l, ["20", "to", "21"])
     err_found = True
     for item in l:
         if get_apt(item) in [20,21]:
@@ -221,7 +221,7 @@ def test_business_remove_expenses():
 
     l = []
     init_expenses_list(l)
-    business_remove_expenses(l, ["20"])
+    infrastructure_remove_expenses(l, ["20"])
     err_found = True
     for item in l:
         if get_apt(item) == 20:
@@ -230,7 +230,7 @@ def test_business_remove_expenses():
 
     l = []
     init_expenses_list(l)
-    business_remove_expenses(l, ["gas"])
+    infrastructure_remove_expenses(l, ["gas"])
     err_found = True
     for item in l:
         if get_type(item) == "gas":
@@ -265,7 +265,7 @@ def test_validate_command_params_replace():
 
 def test_business_replace_expenses():
     l = [{"apartment": 20, "type": "gas", "amount": 2200}, {"apartment": 20, "type": "gas", "amount": 150}, {"apartment": 20, "type": "water", "amount": 333}]
-    business_replace_expenses(l, ["20", "gas", "with", "11"])
+    infrastructure_replace_expenses(l, ["20", "gas", "with", "11"])
     assert(l == [{"apartment": 20, "type": "water", "amount": 333}, {"apartment": 20, "type": "gas", "amount": 11}])
 
 
