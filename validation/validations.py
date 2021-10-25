@@ -17,7 +17,7 @@ def validate_expense(expense):
 
 
 def validate_command_word(word):
-    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max"):
+    if word not in ("exit", "list", "add", "remove", "replace", "sum", "max", "sort"):
         raise ValueError("invalid command word.")
 
 
@@ -82,3 +82,8 @@ def validate_command_params_sum(list_of_params):
 def validate_command_params_max(list_of_params):
     if not str(get_first_param(list_of_params)).isnumeric():
         raise ValueError("apt should be int.")
+
+
+def validate_command_params_sort(list_of_params):
+    if get_first_param(list_of_params) not in ["apartment", "type"]:
+        raise ValueError("param should be either 'apartment' or 'type'.")

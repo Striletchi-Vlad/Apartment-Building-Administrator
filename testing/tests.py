@@ -297,6 +297,32 @@ def test_validate_command_params_max():
         assert(str(ve) == "apt should be int.")
 
 
+def test_infrastructure_sum_expense_apt():
+    l = []
+    init_expenses_list(l)
+    assert(infrastructure_sum_expense_apt(l, 20) == 660)
+
+
+def test_validate_command_params_sort():
+    l = ["type"]
+    validate_command_params_sort(l)
+    l = ["gsga"]
+    try:
+        validate_command_params_sort(l)
+    except ValueError as ve:
+        assert(str(ve) == "param should be either 'apartment' or 'type'.")
+
+
+def test_make_apt_list_without_duplicates():
+    l = []
+    init_expenses_list(l)
+    new_l = make_apt_list_without_duplicates(l)
+    assert(new_l == [20, 21, 22])
+
+
+def test_infrastructure_sort():
+    pass
+
 
 def run_all_tests():
     print("testing started...")
@@ -314,7 +340,10 @@ def run_all_tests():
     test_validate_command_params_sum()
     test_infrastructure_max_expense()
     test_validate_command_params_max()
-
+    test_infrastructure_sum_expense_apt()
+    test_validate_command_params_sort()
+    test_make_apt_list_without_duplicates()
+    test_infrastructure_sort()
     print("testing finished.")
 
 

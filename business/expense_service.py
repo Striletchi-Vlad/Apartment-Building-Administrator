@@ -1,7 +1,7 @@
 from domain.expenses import *
-from presentation.console import list_expenses_ui, max_ui, read_command_ui, sum_ui
-from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_max, validate_command_params_remove, validate_command_params_replace, validate_command_word, validate_expense, validate_command_params_sum
-
+from presentation.console import list_expenses_ui, max_ui, read_command_ui, sort_ui, sum_ui
+from validation.validations import validate_command_params_add, validate_command_params_list, validate_command_params_max, validate_command_params_remove, validate_command_params_replace, validate_command_params_sort, validate_command_word, validate_expense, validate_command_params_sum
+from infrastructure.infrastructure import infrastructure_sort
 
 def add_expense_to_list(l, expense):
     """
@@ -69,6 +69,12 @@ def business_interpret_command(cmd, list_of_expenses):
     if cmd_word == "max":
         validate_command_params_max(cmd_params)
         max_ui(list_of_expenses, cmd_params)
+
+    
+    if cmd_word == "sort":
+        validate_command_params_sort(cmd_params)
+        new_list = infrastructure_sort(list_of_expenses, cmd_params)
+        sort_ui(new_list, cmd_params)
 
 
 def business_add_expenses(list_of_expenses, cmd_params):
