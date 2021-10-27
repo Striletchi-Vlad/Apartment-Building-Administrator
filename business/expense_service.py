@@ -5,6 +5,9 @@ from infrastructure.infrastructure import infrastructure_filter_amount, infrastr
 
 
 def split_command(string):
+    """
+    Splits and strips a string of all whitespaces
+    """
     result = []
 
     raw_split = string.split()
@@ -18,6 +21,9 @@ def split_command(string):
 
 
 def business_start_console():
+    """
+    Console that is always running
+    """
     list_of_expenses = []
     init_expenses_list(list_of_expenses)
     history = [] # list of all the instances of list_of_expenses, for undo
@@ -95,6 +101,9 @@ def business_interpret_command(cmd, list_of_expenses, history):
 
 
 def business_filter_list(list_of_expenses, cmd_params):
+    """
+    Decides which filter to call based on cmd_params
+    """
     if get_first_param(cmd_params).isnumeric():
         infrastructure_filter_amount(list_of_expenses, get_first_param(cmd_params))
     else:

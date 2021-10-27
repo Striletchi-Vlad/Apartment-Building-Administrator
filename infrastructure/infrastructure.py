@@ -9,12 +9,18 @@ def add_expense_to_list(l, expense):
 
 
 def infrastructure_add_expenses(list_of_expenses, cmd_params):
+    """
+    Adds a new expense to the list
+    """
     exp1 = create_expense(int(get_first_param(cmd_params)), get_second_param(cmd_params), int(get_third_param(cmd_params)))
     validate_expense(exp1)
     add_expense_to_list(list_of_expenses, exp1)
 
 
 def infrastructure_remove_expenses(expenses, cmd_params):
+    """
+    Removes expense, depending on cmd_params
+    """
     if(len(cmd_params) > 2): # `remove 5 to 10`
         index = 0
         while index<len(expenses):
@@ -42,6 +48,9 @@ def infrastructure_remove_expenses(expenses, cmd_params):
 
 
 def infrastructure_replace_expenses(expenses, cmd_params):
+    """
+    Deletes all expenses of a certain type for a certain apt, then adds a new one with the new value from param
+    """
     index = 0
     while index<len(expenses):
         if get_apt(expenses[index]) == int(get_first_param(cmd_params)) and get_type(expenses[index]) == get_second_param(cmd_params):
@@ -53,6 +62,9 @@ def infrastructure_replace_expenses(expenses, cmd_params):
 
 
 def infrastructure_max_expense(l, apt_nr, expense_type):
+    """
+    Returns max expense for a certain apt and type
+    """
     max = -1
     for item in l:
         if get_apt(item) == apt_nr and get_type(item) == expense_type:

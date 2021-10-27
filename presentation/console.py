@@ -34,11 +34,17 @@ def list_expenses_ui(l, params):
 
 
 def sum_ui(list_of_expenses, cmd_params):
+    """
+    Pretty prints sum
+    """
     s = infrastructure_sum_expense_type(list_of_expenses, cmd_params)
     print(get_first_param(cmd_params) + " sum is: " + str(s))
 
 
 def max_ui(list_of_expenses, cmd_params):
+    """
+    Pretty prints max
+    """
     for item in ["water", "heating", "electricity", "gas", "other"]:
         max = infrastructure_max_expense(list_of_expenses, int(get_first_param(cmd_params)), item)
         if max != -1:
@@ -46,6 +52,9 @@ def max_ui(list_of_expenses, cmd_params):
 
 
 def sort_ui(new_list, cmd_params):
+    """
+    First sorts, then pretty prints list
+    """
     new_list.sort(key=get_second_param)
 
     print("")
